@@ -1,0 +1,22 @@
+name: docker image push dockerhub
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: A job to build and push docker image
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: build and push docker image
+        run: |
+          echo "build and push start==>"
+          echo {{ secrets.DOCKERHUB_TOKEN }} | docker login -username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker image build --build-arg ASSETS_DIR=static -t redbean:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/redbean:latest
+          docker logout
+          echo "build and push end==>"
