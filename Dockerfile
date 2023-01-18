@@ -1,5 +1,5 @@
 # ARG给出默认值
-ARG ASSETS_DIR=static
+# ARG ASSETS_DIR=static
 
 FROM kissgyorgy/redbean-onbuild as build
 
